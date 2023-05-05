@@ -24,6 +24,6 @@ def extract_and_load(input_dir, csv_dataframe_mapping):
             dataframes[table_name]= pd.read_csv(f"{input_dir}/{csv_file}", delimiter=";")
 
 # Dataframe with the month of the year. The last entry is "Anual", this is for the summary information row of the tables.
-    month = pd.DataFrame(["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Anual"], columns=["Month"])
+    month = pd.DataFrame(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual"], columns=["Month"])
 
     return dataframes, month
