@@ -189,7 +189,7 @@ def rainfall_histo(data, months, station):
                 ax.set_xticklabels(months['Month'])
                 plt.xticks(rotation=0)
                 plt.xlabel(None)
-                plt.ylabel('Precipitation (mm)')
+                plt.ylabel('Rainfall (mm)')
                 ax.set_ylim(top=valor_max*1.25)
 
 # Setting titles and legends.
@@ -199,5 +199,5 @@ def rainfall_histo(data, months, station):
                 plt.suptitle(station.Station + ', Department of ' + station.Department + '\nYear 2022\n', fontsize=12)
 
 # Saving the image.
-                path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Precipitation-' + station.Station.replace('.','_').replace(' ','_')
+                path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Rainfall-' + station.Station.replace('.','_').replace(' ','_')
                 fig.savefig(path, bbox_inches='tight')
