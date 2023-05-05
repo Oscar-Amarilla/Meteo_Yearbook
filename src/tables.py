@@ -49,6 +49,7 @@ def variables_table(months:pd.DataFrame,heliophany:pd.DataFrame,pres:pd.DataFram
 
 # Initializing the image
     img = Image.new('RGB', (1500, 420), color='white')
+    new_size = (1125, 315) # Output size of the table. 
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(FONT_DIR, 18)
 
@@ -308,9 +309,9 @@ def variables_table(months:pd.DataFrame,heliophany:pd.DataFrame,pres:pd.DataFram
 # Headers
     x_offset = dx_4 + 25
     y_offset = 25
-    header=df.columns[0]
+    header='Avg. Relative\n    Moisture'
     draw.rectangle((x_offset, y_offset, x_offset + del_x, y_offset + 50), fill=header_color, outline=grid_color)
-    draw.text((x_offset + center(' Avg. Relative', del_x, font), y_offset + 5), header, font=font, fill='black')
+    draw.text((x_offset + center('Avg. Relative', del_x, font), y_offset + 5), header, font=font, fill='black')
     x_offset += dx_1
 
 # Draw table data
@@ -333,25 +334,27 @@ def variables_table(months:pd.DataFrame,heliophany:pd.DataFrame,pres:pd.DataFram
         draw.line((x_offset, y_offset, x_offset, y_offset), fill=grid_color, width=1)
         y_offset += 50
 
-    new_size = (1125, 315)
+    
 
     img = img.resize(new_size, resample=Image.LANCZOS, reducing_gap=3.0)
     
-    path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Tabla_de_variables-' + station.Station.replace('.','_').replace(' ','_') + '.png'
+    path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Variables_table-' + station.Station.replace('.','_').replace(' ','_') + '.png'
 
 # Save the image
     img.save(path, quality=95)
+
+    display(img)
 
 def temps_table(months:pd.DataFrame,extr_T:pd.DataFrame,avg_T:pd.DataFrame,cate_T:pd.DataFrame,dew_T:pd.DataFrame,station:pd.Series):
 
     os.makedirs(OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_'),  exist_ok=True)
 
 # Initializing the image
-    img = Image.new('RGB', (1300, 450), color='white')
+    img = Image.new('RGB', (1320, 450), color='white')
+    new_size = (987, 337) # Output size of the table. 
     draw = ImageDraw.Draw(img)
     
     font_header = ImageFont.truetype(FONT_DIR, 22)
-
     font = ImageFont.truetype(FONT_DIR, 18)
 
 # Defining color properties
@@ -365,9 +368,9 @@ def temps_table(months:pd.DataFrame,extr_T:pd.DataFrame,avg_T:pd.DataFrame,cate_
 # Header
     x_offset = 25
     y_offset = 20
-    header='Temperatura (ºC)'
-    draw.rectangle((x_offset, y_offset, x_offset + dx_1*9 + del_x*4, y_offset + 30), fill=header_color, outline=grid_color)
-    draw.text((x_offset + center(header, dx_1*9 + del_x*4, font), y_offset + 2), header, font=font_header, fill='black')
+    header='Temperature (ºC)'
+    draw.rectangle((x_offset, y_offset, x_offset + dx_1*8 + del_x*5, y_offset + 30), fill=header_color, outline=grid_color)
+    draw.text((x_offset + center(header, dx_1*8 + del_x*5, font), y_offset + 2), header, font=font_header, fill='black')
 
 #------------- Months columns -------------------
     df = months
@@ -504,7 +507,7 @@ def temps_table(months:pd.DataFrame,extr_T:pd.DataFrame,avg_T:pd.DataFrame,cate_
     #Class header
     x_offset = dx_2 + 25
     y_offset = 50
-    header='Número de Eventos'
+    header='Number of Events'
     draw.rectangle((x_offset, y_offset, x_offset + del_x*4, y_offset + 25), fill=header_color, outline=grid_color)
     draw.text((x_offset + center(header, del_x*4, font), y_offset +2.5), header, font=font, fill='black')
         
@@ -550,12 +553,12 @@ def temps_table(months:pd.DataFrame,extr_T:pd.DataFrame,avg_T:pd.DataFrame,cate_
     columns = []
 
 # Draw table headers
-    header = '  Temp. \nde Rocío'
+    header = '  Dew Point \nTemperature'
     x_offset = dx_3 + 25
     y_offset = 50
 
-    draw.rectangle((x_offset, y_offset, x_offset + dx_1, y_offset + 50), fill=header_color, outline=grid_color)
-    draw.text((x_offset + center('de Rocío', dx_1, font), y_offset + 5), header, font=font, fill='black')
+    draw.rectangle((x_offset, y_offset, x_offset + del_x, y_offset + 50), fill=header_color, outline=grid_color)
+    draw.text((x_offset + center('Temperature', del_x, font), y_offset + 5), header, font=font, fill='black')
     x_offset += dx_1
 
 # Draw table data
@@ -565,18 +568,19 @@ def temps_table(months:pd.DataFrame,extr_T:pd.DataFrame,avg_T:pd.DataFrame,cate_
         row = list(df.iloc[i])
         for j in range(len(row)):
             dato = nan2SD(row [j])
-            draw.rectangle((x_offset, y_offset, x_offset + dx_1, y_offset + 25), fill=(255, 255, 255), outline=grid_color)
-            draw.text((x_offset + center(dato, dx_1, font), y_offset + 2.5), dato, font=font, fill='black')
+            draw.rectangle((x_offset, y_offset, x_offset + del_x, y_offset + 25), fill=(255, 255, 255), outline=grid_color)
+            draw.text((x_offset + center(dato, del_x, font), y_offset + 2.5), dato, font=font, fill='black')
             x_offset += dx_1
         x_offset = dx_3 + 25
         y_offset += 25
 
-    new_size = (975, 337)
 
     img = img.resize(new_size, resample=Image.LANCZOS, reducing_gap=3.0)
     
-    path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Tabla_de_temperaturas-' +  station.Station.replace('.','_').replace(' ','_') + '.png'
+    path = OUTPUT_DIR + '/' + station.Station.replace('.','_').replace(' ','_') + '/' + 'Temperatures_table-' +  station.Station.replace('.','_').replace(' ','_') + '.png'
 
 # Save the image
     img.save(path, quality=95)
+
+    display(img)
 

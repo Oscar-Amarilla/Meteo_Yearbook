@@ -116,11 +116,8 @@ def station_vars_dataframes(months: pd.DataFrame, database: dict, i: int) -> Tup
     wind.columns = cols
 
 # Initializing a dataframe with moisture information.
-    moisture_df = pd.DataFrame(columns=['    Avg. Raltive \n Moisture'])
-    moisture_df['    Avg. Relative \n Moisture.'] = np.round(database['moisture'].iloc[i,2:].tolist() + [database['moisture'].iloc[i,2:].mean()],1)    
-    
-    lst = np.round(database['dew_T'].iloc[i,2:].tolist() + [database['dew_T'].iloc[i,2:].mean()],1)
-    dew_T = pd.DataFrame(lst, columns=['    Avg. Relative\n Moisture.'])
+    moisture_df = pd.DataFrame(columns=['Avg. Relative Moisture'])
+    moisture_df['Avg. Relative Moisture'] = np.round(database['moisture'].iloc[i,2:].tolist() + [database['moisture'].iloc[i,2:].mean()],1)    
     
     return heliophany,pres,rain,wind,moisture_df,station
 
